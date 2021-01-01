@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PickturAnimation : MonoBehaviour
+public class PictureAnimation : MonoBehaviour
 {
     public GameObject image;
     public Sprite[] images;
