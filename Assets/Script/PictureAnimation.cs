@@ -10,7 +10,18 @@ public class PictureAnimation : MonoBehaviour
     public float delay = 0.1f;
     int index = 0;
     Coroutine CoroutineLoop;
+    SaveLoad<floatData> saveLoad = new SaveLoad<floatData>();
 
+    private void Awake()
+    {
+        floatData temp = new floatData();
+        bool v = saveLoad.Load("Delay", Application.dataPath, out temp);
+        if(temp != null)
+        if (temp.Data != 0)
+        {
+            delay = temp.Data;
+        }
+    }
     void Start()
     {
         GetComponent<MicScript>().SetUp(speaked);
@@ -40,5 +51,10 @@ public class PictureAnimation : MonoBehaviour
         }
 
         CoroutineLoop = StartCoroutine(Loop());
+    }
+    public void Save(float delay)
+    {
+        var v = new floatData(delay);
+        saveLoad.Save(v, "Delay", Application.dataPath);
     }
 }

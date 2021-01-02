@@ -55,6 +55,7 @@ public class Setting : MonoBehaviour
     void EditStartVaule(string vaule)
     {
         mic.OverVaule = float.Parse(vaule);
+        mic.Save(float.Parse(vaule));
     }
     void ReverseEvent()
     {
@@ -79,6 +80,7 @@ public class Setting : MonoBehaviour
         }
 
         PictureAnim.delay = Lvaule;
+        PictureAnim.Save(Lvaule);
         SpeedScrollbar.value = Lvaule;
     }
     void SpeedScrollbarEvent(float vaule)
@@ -90,6 +92,7 @@ public class Setting : MonoBehaviour
         }
 
         PictureAnim.delay = Lvaule;
+        PictureAnim.Save(Lvaule);
         SpeedInput.text = Lvaule.ToString("0.##");
     }
 }

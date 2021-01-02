@@ -2,6 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[SerializeField]
+public class floatData
+{
+    public float data;
+    public float Data { get => data; set => data = value; }
+    public floatData(float vaule = 0)
+    {
+        data = vaule;
+    }
+}
 public class MicScript : MonoBehaviour
 {
     AudioSource _audio;
@@ -9,7 +19,7 @@ public class MicScript : MonoBehaviour
     public float sensitivity = 100;
     public float loudness = 0;
 
-    public float OverVaule = 3;
+    public float OverVaule = 1;
     public bool Over = false;
     bool DoOnce = false;
 
@@ -51,6 +61,17 @@ public class MicScript : MonoBehaviour
     public delegate void Speak(bool b);
     Speak speak;
 
+    SaveLoad<floatData> saveLoad = new SaveLoad<floatData>();
+    private void Awake()
+    {
+        floatData temp = new floatData();
+        bool v = saveLoad.Load("OverVaule", Application.dataPath, out temp);
+        if(temp != null)
+        if (temp.Data != 0)
+        {
+            OverVaule = temp.Data;
+        }
+    }
     private void Start()
     {
         samples = new float[SampleRate];
@@ -90,5 +111,10 @@ public class MicScript : MonoBehaviour
     public void SetUp(Speak SpeakEvent)
     {
         speak = SpeakEvent;
+    }
+    public void Save(float Over)
+    {
+        var v = new floatData(Over);
+        saveLoad.Save(v, "OverVaule", Application.dataPath);
     }
 }
